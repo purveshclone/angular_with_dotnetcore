@@ -18,6 +18,7 @@ namespace Testfirst.API.Controller
         {
             _context = context;
         }
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetValues()
         {
