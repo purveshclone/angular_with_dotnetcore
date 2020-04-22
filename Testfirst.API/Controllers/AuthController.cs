@@ -28,7 +28,7 @@ namespace Testfirst.API.Controllers
         {
             UserForRegister.Username = UserForRegister.Username.ToLower();
             if (await _repo.UserExist(UserForRegister.Username))
-                return BadRequest("username doesn't exist !!");
+                return BadRequest("username already exist !!");
 
             var userToCreate = new Users
             {
@@ -40,6 +40,9 @@ namespace Testfirst.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLOginDto userForLogin)
         {
+
+            // throw new System.Exception("Computer says no!!");
+
             var userFromRepo = await _repo.Login(userForLogin.Username.ToLower(), userForLogin.Password);
             if (userFromRepo == null)
                 return Unauthorized();
