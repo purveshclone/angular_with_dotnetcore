@@ -1,7 +1,8 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+<div class="container">
   <a class="navbar-brand" href="#">Test App</a>
 
-    <ul class="navbar-nav mr-auto">
+    <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="#">Home</a>
       </li> 
@@ -11,22 +12,34 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Messages</a>
       </li>
-      <li *ngIf="loggedIn()" class="nav-item">
+      <!-- <li *ngIf="loggedIn()" class="nav-item">
         <a class="nav-link" (click)="logout()">Logout</a>
-      </li>
+      </li> -->
     </ul>
-
-    <div *ngIf="loggedIn()" class="dropdown">
-      <a class="dropdown-toggle text-light">
-        Welcome  User
+    <!-- <div class="btn-group" dropdown>
+      <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+        Button dropdown <span class="caret"></span>
+      </button>
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+        <li class="divider dropdown-divider"></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+        </li>
+      </ul>
+    </div> -->
+    <div *ngIf="loggedIn()" class="dropdown" dropdown>
+      <a class="dropdown-toggle text-light" dropdownToggle>
+        Welcome  {{authService.decodeToken?.unique_name | titlecase}}
       </a>
     
-      <div class="dropdown-menu">
+      <div class="dropdown-menu mt-3" *dropdownMenu>
         <a class="dropdown-item" href="#"><i class="fa fa-user"></i>Edit</a>
         <div class="dropdown-devider">
 
         </div>
-        <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>Logout</a>
+        <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
       </div>
     </div>
 
@@ -35,5 +48,7 @@
       <input class="form-control mr-sm-2" name="password" type="password" required placeholder="Password" [(ngModel)]="model.Password">
       <button class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
     </form>
+</div>
+  
 
 </nav>
