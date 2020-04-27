@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Testfirst.API.Data;
 
 namespace Testfirst.API
 {
@@ -13,7 +11,25 @@ namespace Testfirst.API
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            // CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            using(var scope = host.Services.CreateScope()){
+                var Services = scope.ServiceProvider;
+                try
+                {
+                  var context = Services.GetRequiredService<DataContext>();
+                  context.Database.Migrate();
+                  Seed.SeedUsers(context);   
+                }
+                catch (System.Exception ex)
+                {
+                    var logger = Services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex,"An error occured during migration!!");
+                }
+            }
+
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
