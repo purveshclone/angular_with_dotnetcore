@@ -23,6 +23,8 @@ namespace Testfirst.API.Helpers
                             src.DateOfBirth.CalculateAge()));;
             CreateMap<Photo,PhotoForDetailDto>();
             CreateMap<UserForUpdateDto, Users>();
+            CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto,Photo>();
         }
     }
 }

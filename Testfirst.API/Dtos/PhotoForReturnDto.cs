@@ -1,8 +1,8 @@
 using System;
 
-namespace Testfirst.API.Models
+namespace Testfirst.API.Dtos
 {
-    public class Photo
+    public class PhotoForReturnDto
     {
         public int PhotoId { get; set; }
         public string Url   { get; set; }
@@ -10,7 +10,5 @@ namespace Testfirst.API.Models
         public DateTime DateAdded { get; set; }
         public bool IsMain { get; set; }
         public string PublicId { get; set; }
-        public Users Users { get; set; }
-        public int UsersId { get; set; }
     }
 }

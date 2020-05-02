@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Testfirst.API.Models;
@@ -38,6 +39,18 @@ namespace Testfirst.API.Data
         public async Task<bool> SaveAll()
         {
            return await _context.SaveChangesAsync()>0;
+        }
+
+        public async Task<Photo> GetPhoto(int id)
+        {
+           var photo = await _context.Photo.FirstOrDefaultAsync(u=>u.PhotoId==id);
+            return photo;
+        }
+
+        public async Task<Photo> GetMainPhotoForUser(int userId)
+        {
+           var photo = await _context.Photo.Where(p=>p.UsersId==userId).FirstOrDefaultAsync(u=>u.IsMain);
+            return photo;
         }
     }
 }

@@ -9,5 +9,6 @@ namespace Testfirst.API.Data
 
         public DbSet<Value> MyProperty  { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<Photo> Photo { get; set; }
     }
 }

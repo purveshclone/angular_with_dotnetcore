@@ -1,16 +1,16 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-<div class="container">
-  <a class="navbar-brand" [routerLink]="['/home']" >Test App</a>
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/home']">Test App</a>
 
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/members']"  >Home</a>
-      </li> 
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/lists']"  >Actoins</a>
+        <a class="nav-link" [routerLink]="['/members']">Home</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/messages']"  >Messages</a>
+        <a class="nav-link" [routerLink]="['/lists']">Actoins</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/messages']">Messages</a>
       </li>
       <!-- <li *ngIf="loggedIn()" class="nav-item">
         <a class="nav-link" (click)="logout()">Logout</a>
@@ -30,25 +30,47 @@
       </ul>
     </div> -->
     <div *ngIf="loggedIn()" class="dropdown" dropdown>
+      <span class="mr-1">
+        <img src="{{ photoUrl }}" alt="" />
+      </span>
       <a class="dropdown-toggle text-light" dropdownToggle>
-        Welcome  {{authService.decodeToken?.unique_name | titlecase}}
+        Welcome {{ authService.decodeToken?.unique_name | titlecase }}
       </a>
-    
-      <div class="dropdown-menu mt-3" *dropdownMenu>
-        <a class="dropdown-item" [routerLink]="['/member/edit']" ><i class="fa fa-user"></i>Edit</a>
-        <div class="dropdown-devider">
 
-        </div>
-        <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
+      <div class="dropdown-menu mt-3" *dropdownMenu>
+        <a class="dropdown-item" [routerLink]="['/member/edit']"
+          ><i class="fa fa-user"></i>Edit</a
+        >
+        <div class="dropdown-devider"></div>
+        <a class="dropdown-item" (click)="logout()"
+          ><i class="fa fa-sign-out"></i>Logout</a
+        >
       </div>
     </div>
 
-    <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
-      <input class="form-control mr-sm-2" name="username" type="text" required placeholder="Username" [(ngModel)]="model.Username">
-      <input class="form-control mr-sm-2" name="password" type="password" required placeholder="Password" [(ngModel)]="model.Password">
+    <form
+      *ngIf="!loggedIn()"
+      #loginForm="ngForm"
+      class="form-inline my-2 my-lg-0"
+      (ngSubmit)="login()"
+    >
+      <input
+        class="form-control mr-sm-2"
+        name="username"
+        type="text"
+        required
+        placeholder="Username"
+        [(ngModel)]="model.Username"
+      />
+      <input
+        class="form-control mr-sm-2"
+        name="password"
+        type="password"
+        required
+        placeholder="Password"
+        [(ngModel)]="model.Password"
+      />
       <button class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
     </form>
-</div>
-  
-
+  </div>
 </nav>
