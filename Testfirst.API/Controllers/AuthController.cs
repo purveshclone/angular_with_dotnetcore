@@ -33,12 +33,15 @@ namespace Testfirst.API.Controllers
             if (await _repo.UserExist(UserForRegister.Username))
                 return BadRequest("username already exist !!");
 
-            var userToCreate = new Users
-            {
-                UserName = UserForRegister.Username
-            };
+            // var userToCreate = new Users
+            // {
+            //     UserName = UserForRegister.Username
+            // };
+            var userToCreate = _mapper.Map<Users>(UserForRegister);
             var createdUser = await _repo.Register(userToCreate, UserForRegister.Password);
-            return StatusCode(201);
+            // return StatusCode(201);
+            var userToReturn = _mapper.Map<UserForDetailDto>(createdUser);
+            return CreatedAtRoute("GetUser", new { Controller = "user", id = createdUser.Id, Action="GetUser" }, userToReturn);
         }
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLOginDto userForLogin)
