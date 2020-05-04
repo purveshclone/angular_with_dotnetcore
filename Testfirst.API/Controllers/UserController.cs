@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Testfirst.API.Data;
 using Testfirst.API.Dtos;
+using Testfirst.API.Helpers;
 
 namespace Testfirst.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[Controller]/{action}")]
     [ApiController]
