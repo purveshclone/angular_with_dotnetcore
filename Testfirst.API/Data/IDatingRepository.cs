@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Testfirst.API.Helpers;
 using Testfirst.API.Models;
 
 namespace Testfirst.API.Data
@@ -9,7 +10,7 @@ namespace Testfirst.API.Data
          void Add<T>(T entity) where T:class;
          void delete<T>(T entity) where T:class;
         Task<bool> SaveAll(); 
-        Task<IEnumerable<Users>> GetUsers();
+        Task<PageList<Users>> GetUsers(UserParams userParams);
         Task<Users> GetUser(int Id);
         Task<Photo> GetPhoto(int id);
         Task<Photo> GetMainPhotoForUser(int userId);
