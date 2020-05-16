@@ -14,6 +14,7 @@ namespace Testfirst.API.Data
         Task<Users> GetUser(int Id);
         Task<Photo> GetPhoto(int id);
         Task<Photo> GetMainPhotoForUser(int userId);
+        Task<Like> GetLike(int userId, int recipientId);
 
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Testfirst.API.Data;
 using Testfirst.API.Dtos;
 using Testfirst.API.Helpers;
+using Testfirst.API.Models;
 
 namespace Testfirst.API.Controllers
 {
@@ -64,6 +65,36 @@ namespace Testfirst.API.Controllers
             if (await _repo.SaveAll())
                 return NoContent();
             throw new System.Exception($"Updating user {userForUpdate.Id} failed on save!");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LikeUser(int id, int recipientid)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var like =await _repo.GetLike(id, recipientid);
+
+            if (like != null)
+            {
+                return BadRequest("Already liked !!");
+            }
+
+            if (await _repo.GetUser(recipientid) == null)
+                return NotFound();
+
+            var likes = new Like
+            {
+                LikerId = id,
+                LikeeId = recipientid
+            };
+            _repo.Add<Like>(likes);
+
+            if (await _repo.SaveAll())
+                return Ok();
+
+            return BadRequest("Failed to like !!");
+
         }
     }
 }
